@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::resource('/patients', PatientController::class);
+
+Route::resource('/labs', LabController::class);

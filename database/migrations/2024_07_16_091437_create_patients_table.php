@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('last_name');
             $table->enum('gender', ['m', 'f'])->comment('m is male and f is female');
             $table->date('dateOfBirth');
-            $table->string('phonenumber', 10);
-            $table->string('NIN');
+            $table->string('phonenumber', 20);
+            $table->string('NIN')->nullable();
             $table->enum('marital', ['1', '2', '3'])->comment('1 is single, 2 is married, 3 is divorced');
             $table->string('nextOfkin');
-            $table->string('kincontactNumber', 10);
+            $table->string('kincontactNumber', 20);
             $table->string('Relationship');
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Patient;
 
 class Patient extends Model
 {
@@ -21,4 +22,7 @@ class Patient extends Model
         
     ];
     use HasFactory;
+    public function medicalRecords(){
+        return $this->hasOne(MedicalRecord::class);
+    }
 }

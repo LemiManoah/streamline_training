@@ -27,9 +27,9 @@
         </tr>
         @foreach ($patients as $patient)
         <tr>
-            <td>{{$patient->first_name}} {{ $patient->first_name }}</td>
-            <td>{{$patient->first_name}}</td>
-            <td>{{($patient->first_name =="M")? 'Male':'Female'}}</td>
+            <td>{{$patient->first_name}} {{ $patient->last_name }}</td>
+            <td>{{$patient->phonenumber}}</td>
+            <td>{{($patient->gender =="M")? 'Male':'Female'}}</td>
             <td>
                 <form action="{{ route('patients.destroy',$patient->id) }}" method="POST">
    

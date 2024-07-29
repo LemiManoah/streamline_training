@@ -14,7 +14,7 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patients = Patient::paginate(5);
+        $patients = Patient::paginate(10);
         return view('patients.index', compact('patients'));
     }
 
@@ -29,12 +29,34 @@ class PatientController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePatientRequest $request)
     {
+        
+        // $request->validate([ "NIN" => function (string $attribute, mixed $value, Closure $fail){
+        //     $nationalid = str_split($value);
+        //     $date_of_birth = str_split(explode('/', $request->dateOfBirth)[2]);
+
+        //     if (substr($nationalid, 0, 2) !== 'CM') {
+        //         $fail('The :attribute must start with CM.');
+        //     }elseif ($date_of_birth[2] !== $nationalid[3] && $date_of_birth[3] !== $nationalid[4]) {
+        //         $fail('The :attribute is invalid for entered Date of birth.');
+        //     }
+        // } ]); 
+        
         Patient::create($request->all());
 
-        return redirect()->route('patients.index')->with('success', 'Patient created successfully');
+        return redirect()->route('patients.index')
+            ->with('success', 'Patient created successfully');
+
+        
     }
+
+
+    //INSERT INTO patients(name, age, status) VALUES('Lemi', '11', 'single');
+    //SELECT FROM patients WHERE name = 'Lemi'
+    //UPDATE patients SET age = '12' WHERE name = 'Lemi';
+
+
 
     /**
      * Display the specified resource.
@@ -48,9 +70,9 @@ class PatientController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Patient $patient)
+    public function edit($id)
     {
-        $patients = Patient::findOrFail();
+        $patient = Patient::findOrFail($id);
         return view('patients.edit', compact('patient')); 
     }
 
@@ -67,6 +89,12 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        
+    // Delete the patient
+        $patient->delete();
+
+    // Redirect to the patients index with a success message
+        return redirect()->route('patients.index')
+            ->with('success', 'Patient deleted successfully');
     }
+
 }
